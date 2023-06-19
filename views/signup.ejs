@@ -22,7 +22,7 @@
 
         <div class="left">
             <p>Logo</p>
-            <lottie-player src="https://assets9.lottiefiles.com/packages/lf20_3ueg3po6.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;"  loop  autoplay></lottie-player>
+            <lottie-player src="https://assets8.lottiefiles.com/private_files/lf30_fe507ybk.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;"  loop  autoplay></lottie-player>
         </div>
 
         <div class="right">
@@ -38,6 +38,10 @@
 
                 <h2>Account Signup</h2>
                 <p>Become a member and enjoy exclusive promotions.</p>
+
+                <% if(signupPageError !== undefined) { %>
+                    <p style="color: red; align-self: center;"> <%= signupPageError %> </p>
+                <% } %>
 
                 <form action="/signup" method="post">
 
