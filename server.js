@@ -86,7 +86,6 @@ app.post("/signup", async (req, res) => {
     transporter.sendMail(mailOptions, (err, info) => {
         if(err) {
 
-            console.log(err);
             // step # delete data for current user from database;
 
             res.status(200).render("signup", {
