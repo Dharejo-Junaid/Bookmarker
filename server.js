@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const { hash, compare } = require("bcrypt");
 const { createTransport } = require("nodemailer");
+const Mail = require("nodemailer/lib/mailer");
 require("dotenv").config();
 
 app.set("view engine", "ejs");
@@ -49,9 +50,14 @@ app.get("/signup", (req, res) => {
 app.post("/signup", async (req, res) => {
 
     const {name, email, password, confPassword} = req.body;
-    console.log(name, email, password, confPassword);
 
-    // get user from database
+    if(password !== confPassword) {
+        res.status(200).render("signup", {
+            signupPageError: "Password & confirm password are not same"
+        })
+    }
+
+    // step # get user from database;
     let user = {email: "junaid@gmail.com",passwordHash: "$2b$10$CvUffTF92ZYJOvP5kc53nengtq0BYienvIt37UQZ8N4DCPqULAiv."};
 
     if(email === user.email) {
@@ -78,8 +84,8 @@ app.post("/signup", async (req, res) => {
         to: email,
         subject: "Please verify you mail",
         html: `
-            <p>Please verify your account for book marker</p>
-            <a target="_blank" href="http:/localhost:5000/verify/${hashEmail}">Verify</a>
+            <p>Please click the link below to verify your account for book marker</p>
+            <a target="_blank" href="http:/localhost:5000/verify/${hashEmail}">http://localhost:5000/verify/${hashEmail}</a>
         `
     };
 
