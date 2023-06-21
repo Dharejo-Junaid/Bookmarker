@@ -4,6 +4,7 @@ const app = express();
 const login = require("./controllers/login");
 const signup = require("./controllers/signup");
 const verfiy = require("./controllers/verify");
+const bookmarker = require("./controllers/bookmarker");
 
 app.set("view engine", "ejs");
 
@@ -11,6 +12,7 @@ app.set("view engine", "ejs");
 app.use("/", login);
 app.use("/signup", signup);
 app.use("/verify", verfiy);
+app.use("/bookmarker", bookmarker);
 
 app.listen(5000, () => {
     console.log("Server is listening at 5000");

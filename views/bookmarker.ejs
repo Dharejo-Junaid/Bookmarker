@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book marker</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="bookmarker.css">
+
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="right">
+            <h2>Book Marker</h2>
+            
+            <div class="right-inner">
+                <form action="/bookmarker" method="post">
+
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="url">Url</label>
+                    <input type="url" id="url" name="url" required>
+
+                    <input type="submit" value="Add">
+                </form>
+            </div>
+        </div>
+
+        <div class="right">
+            <% for(let i=0; i<names.length; i++) { %>
+                <div>
+                    <p> <%= names[i] %> </p>
+                    <a href="<%= urls[i] %>"> <%= urls[i] %> </a>
+                </div>
+            <% } %>
+        </div>
+    </div>
+    
+</body>
+</html>

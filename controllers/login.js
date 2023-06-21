@@ -22,7 +22,7 @@ router.post("/", async (req, res) => {
 
         compare(password, user.passwordHash, (err, same) => {
             if(same) {
-                res.send("Access granted");
+                res.redirect("/bookmarker");
             
             } else {
                 res.status(200).render("index", {

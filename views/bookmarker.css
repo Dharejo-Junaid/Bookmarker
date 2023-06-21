@@ -1,0 +1,30 @@
+h2 {
+    align-self: center;
+}
+
+.container {
+    flex-direction: column;
+}
+
+.right {
+    margin: 20px;
+    height: auto;
+    width: 60%;
+    background-color: transparent;
+}
+
+.right-inner {
+    padding: 0 20px 0 20px;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+div {
+    margin-bottom: 15px;
+}
+
+@media (max-width: 900px) {
+    .right {
+        width: 80%;
+    }
+}
