@@ -63,7 +63,6 @@ lottie-player {
 }
 
 #back i {
-    /* margin: 10px 5px 50px 15px; */
     font-size: 10px;
     margin-left: 15px;
     margin-top: 15px;
@@ -118,6 +117,7 @@ input[type="submit"] {
     color: white;
     border: none;
     margin-top: 15px;
+    margin-bottom: 10px;
 }
 
 input[type="submit"]:hover {
