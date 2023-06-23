@@ -15,7 +15,7 @@ const verifyUser = async (req, res) => {
         const token = jwt.sign( 
             { id: userId }, 
             process.env.JWT_KEY, 
-            { expiresIn:"3m" }
+            { expiresIn:"7d" }
         );
 
         res.cookie('token', token, { httpOnly: true, secure: true }).redirect("/bookmarker");

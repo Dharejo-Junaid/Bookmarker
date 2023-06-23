@@ -4,7 +4,7 @@ const router = express.Router();
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 
-const auth = require("../middlewares/auth");
+const { auth } = require("../middlewares/auth");
 const { loginGetReq, loginPostReq } = require("../controllers/login");
 
 router.use([

@@ -11,6 +11,8 @@ const loginGetReq = (req, res) => {
 
 const loginPostReq = async (req, res) => {
 
+    console.log(await User.find({}));
+
     const { email, password } = req.body;
 
     // get user from database
@@ -33,9 +35,9 @@ const loginPostReq = async (req, res) => {
             }
 
             const token = jwt.sign( 
-                { id: user["_id"].toString().split(`"`)[1] }, 
+                { id: user._id.toString().split(`"`)[1] }, 
                 process.env.JWT_KEY, 
-                {expiresIn:"3m"}
+                {expiresIn:"7d"}
             );
 
             

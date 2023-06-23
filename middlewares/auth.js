@@ -8,10 +8,12 @@ const auth = async (req, res, next) => {
         jwt.verify(token, process.env.JWT_KEY, (err, result) => {
             if(! err) {
                 
+                req.id = result.id;
+
                 if(req.originalUrl === "/bookmarker")
                     return next();
                 else 
-                    return res.redirect("/bookmarker");    
+                    return res.redirect("/bookmarker");
             }
 
             else {
@@ -20,6 +22,13 @@ const auth = async (req, res, next) => {
             }
         });
     }
+
+    else {
+        if(req.originalUrl === "/") return next();
+        else return res.redirect("/");
+    }
+
+    
 }
 
-module.exports = auth;
+module.exports.auth =  auth;

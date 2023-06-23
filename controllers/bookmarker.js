@@ -1,34 +1,24 @@
-const userBookmarks = [
-    {
-        name: "google",
-        url: "ghvjhbsjfmajksrnkfdsbrkjnskn,aklnmrkl"
-    },
+const User = require("../models/users");
 
-    {
-        name: "apple",
-        url: "ghvjhbsjfmajksrnkfdsbrkjnskn,aklnmrkl"
-    },
+let userBookmarks = [];
 
-    {
-        name: "facebook",
-        url: "ghvjhbsjfmajksrnkfdsbrkjnskn,aklnmrkl"
-    }
-]
+const getAllBookmarks = async (req, res) => {
+    
+    userBookmarks = (await User.findById(req.id, 
+        {_id: false, bookmarks: true})).bookmarks;
 
-const getAllBookmarks = (req, res) => {
     res.status(200).render("./bookmarker", {
-        userBookmarks: userBookmarks
+        userBookmarks
     });
 }
 
-const addNewBookmark = (req, res) => {
+const addNewBookmark = async (req, res) => {
     const { name, url } = req.body;
 
     // Add bookmarks to database;
-    userBookmarks.push({
-        name: name,
-        url: url
-    });
+    await User.findByIdAndUpdate(req.id, {$push: {bookmarks: {
+        name: name, url: url
+    }}});
     res.redirect("/bookmarker");
 }
 
