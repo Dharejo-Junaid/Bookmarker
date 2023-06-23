@@ -3,6 +3,7 @@ const router = express.Router();
 const { createTransport } = require("nodemailer");
 const { hash, compare } = require("bcrypt");
 const bodyParser = require("body-parser");
+const User = require("../models/users");
 
 require("dotenv").config();
 
@@ -25,16 +26,32 @@ router.post("/", async (req, res) => {
         })
     }
 
-    // step # get user from database;
-    let user = {email: "junaid@gmail.com",passwordHash: "$2b$10$CvUffTF92ZYJOvP5kc53nengtq0BYienvIt37UQZ8N4DCPqULAiv."};
-
-    if(email === user.email) {
+    // if user already exists in database;
+    const data = await User.findOne({email: email});
+    console.log(data);
+    if(data) {
         return res.status(200).render("signup", {
             signupPageError: "Account already exists"
         });
     }
 
-    // step # store data into database with validated = false;
+    const hashPassword = await hash(password, 10);
+    const user = new User({
+        name: name,
+        email: email,
+        hashPassword: hashPassword,
+        isVerified: false
+    });
+
+    console.log(user);
+    await user.save();
+
+    // getting current user's Id;
+    const userId = await User.findOne({
+        email: email
+    }, {_id: true});
+
+    const userIdString = userId.toString().split(`"`)[1];
 
     const transporter = createTransport({
         service: "Gmail",
@@ -44,8 +61,8 @@ router.post("/", async (req, res) => {
         }
     });
 
-    // encrypting mail;
-    const hashEmail = await hash(email, 10);
+    // encrypting _id;
+    const hashId = await hash(userIdString, 10);
 
     const mailOptions = {
         from: process.env.GMAIL,
@@ -53,15 +70,15 @@ router.post("/", async (req, res) => {
         subject: "Please verify you mail",
         html: `
             <p>Please click the link below to verify your account for book marker</p>
-            <a target="_blank" href="http:/localhost:5000/verify/${hashEmail}">http://localhost:5000/verify/${hashEmail}</a>
+            <a target="_blank" href="http:/localhost:5000/verify/${encodeURIComponent(hashId)}">http://localhost:5000/verify/${encodeURIComponent(hashId)}</a>
         `
     };
 
     transporter.sendMail(mailOptions, (err, info) => {
+
         if(err) {
-
-            // step # delete data for current user from database;
-
+            console.log(err);
+            console.log(info);
             return res.status(200).render("signup", {
                 signupPageError: "Issue in creating account"
             });

@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const { compare } = require("bcrypt");
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
+const User = require("../models/users");
 
 router.use(cookieParser());
 router.use(express.static("views"));
@@ -25,17 +26,26 @@ router.post("/", async (req, res) => {
     const {email, password} = req.body;
 
     // get user from database
-    let user = {email: "junaid@gmail.com",passwordHash: "$2b$10$CvUffTF92ZYJOvP5kc53nengtq0BYienvIt37UQZ8N4DCPqULAiv."};
+    const user = await User.findOne({email: email});
 
-    if(email === user.email) {
+    if(email == user.email) {
 
-        compare(password, user.passwordHash, (err, same) => {
+        compare(password, user.hashPassword, (err, same) => {
             if(same) {
 
-                const token = jwt.sign( { email }, process.env.JWT_SECRET, {expiresIn:"7d"});
+                if(! user.isVerified) {
+                    return res.status(200).render("index", {
+                        loginPageError: "Please verify your account first"
+                    });
+                }
 
-                res.cookie('token', token, { httpOnly: true, secure: true });
-                res.redirect("/bookmarker");
+                const token = jwt.sign( 
+                    { id: user["_id"].toString().split(`"`)[1] }, 
+                    process.env.JWT_SECRET, 
+                    {expiresIn:"3m"}
+                );
+
+                res.cookie('token', token, { httpOnly: true, secure: true }).redirect("/bookmarker");
             
             } else {
                 res.status(200).render("index", {
@@ -43,7 +53,6 @@ router.post("/", async (req, res) => {
                 });
             }
         });
-
     }
 
     else {
