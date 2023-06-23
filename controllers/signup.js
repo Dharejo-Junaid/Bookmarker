@@ -16,10 +16,9 @@ const signupPostRequest = async (req, res) => {
         })
     }
 
-    console.log(await User.find({}));
     // if user already exists in database;
     const data = await User.findOne({email: email});
-    console.log(data);
+
     if(data) {
         return res.status(200).render("signup", {
             signupPageError: "Account already exists"
@@ -35,7 +34,6 @@ const signupPostRequest = async (req, res) => {
         bookmarks: []
     });
 
-    console.log(user);
     await user.save();
 
     // getting current user's Id;

@@ -6,7 +6,6 @@ const login = require("./routers/login");
 const signup = require("./routers/signup");
 const verfiy = require("./routers/verify");
 const bookmarker = require("./routers/bookmarker");
-const User = require("./models/users");
 
 const app = express();
 
@@ -25,8 +24,7 @@ mongoose.connect(process.env.MONGO_URL, {
     useUnifiedTopology: true
 
 }).then(async () => {
-    
-    // await User.deleteMany({isVerified: false});
+
     console.log('Connected to MongoDB');
 
     // run server;

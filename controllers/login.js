@@ -11,8 +11,6 @@ const loginGetReq = (req, res) => {
 
 const loginPostReq = async (req, res) => {
 
-    console.log(await User.find({}));
-
     const { email, password } = req.body;
 
     // get user from database
