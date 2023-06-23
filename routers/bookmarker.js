@@ -5,7 +5,7 @@ const {getAllBookmarks, addNewBookmark} = require("../controllers/bookmarker");
 
 router.use(express.urlencoded({ extended:true }));
 
-// router.use(auth);
+router.use(auth);
 router.get("/", getAllBookmarks);
 router.post("/", addNewBookmark);
 

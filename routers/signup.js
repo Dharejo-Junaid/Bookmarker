@@ -5,10 +5,8 @@ const { signupGetRequest, signupPostRequest } = require("../controllers/signup")
 
 require("dotenv").config();
 
-// router.set("view engine", "ejs");
 router.use(express.static("views"));
 router.use(bodyParser.urlencoded({extended: true}));
-
 
 router.get("/", signupGetRequest);
 router.post("/", signupPostRequest);

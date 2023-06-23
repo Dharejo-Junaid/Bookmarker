@@ -1,7 +1,6 @@
 const express = require("express");
-const app = express();
-
 const mongoose = require('mongoose');
+require("dotenv").config();
 
 const login = require("./routers/login");
 const signup = require("./routers/signup");
@@ -9,6 +8,9 @@ const verfiy = require("./routers/verify");
 const bookmarker = require("./routers/bookmarker");
 const User = require("./models/users");
 
+const app = express();
+
+// tamplate engine;
 app.set("view engine", "ejs");
 
 // routes;
@@ -17,14 +19,22 @@ app.use("/signup", signup);
 app.use("/verify", verfiy);
 app.use("/bookmarker", bookmarker);
 
-mongoose.connect('mongodb://localhost:27017/mydatabase', { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(async () => {
-        await User.deleteMany({isVerified: false});
-        console.log('Connected to MongoDB');
-        app.listen(5000, () => {
-            console.log("Server is listening at 5000");
-        });
-    })
-    .catch((error) => {
-        console.error('Error connecting to MongoDB:', error);
+// MongoDB connection;
+mongoose.connect(process.env.MONGO_URL, {
+    useNewUrlParser: true, 
+    useUnifiedTopology: true
+
+}).then(async () => {
+    
+    // await User.deleteMany({isVerified: false});
+    console.log('Connected to MongoDB');
+
+    // run server;
+    app.listen(5000, () => {
+        console.log("Server is listening at 5000");
     });
+
+    // If somehow we are not able to connect with database;
+}).catch((error) => {
+    console.error('Error connecting to MongoDB:', error);
+});

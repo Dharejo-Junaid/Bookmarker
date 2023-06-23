@@ -14,7 +14,7 @@ const verifyUser = async (req, res) => {
 
         const token = jwt.sign( 
             { id: userId }, 
-            process.env.JWT_SECRET, 
+            process.env.JWT_KEY, 
             { expiresIn:"3m" }
         );
 

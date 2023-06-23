@@ -25,9 +25,10 @@ const addNewBookmark = (req, res) => {
     const { name, url } = req.body;
 
     // Add bookmarks to database;
-    // names.push(name);
-    // urls.push(url);
-
+    userBookmarks.push({
+        name: name,
+        url: url
+    });
     res.redirect("/bookmarker");
 }
 

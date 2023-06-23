@@ -8,13 +8,12 @@ const auth = require("../middlewares/auth");
 const { loginGetReq, loginPostReq } = require("../controllers/login");
 
 router.use([
-    cookieParser(), 
-    express.static("views"), 
-    bodyParser.urlencoded({extended: true}), 
-    // auth
+    cookieParser(),
+    express.static("views"),
+    bodyParser.urlencoded({extended: true})
 ]);
 
-router.get("/", cookieParser(), loginGetReq);
+router.get("/", auth, loginGetReq);
 router.post("/", loginPostReq);
 
 module.exports = router;

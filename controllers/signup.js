@@ -31,7 +31,8 @@ const signupPostRequest = async (req, res) => {
         name: name,
         email: email,
         hashPassword: hashPassword,
-        isVerified: false
+        isVerified: false,
+        bookmarks: []
     });
 
     console.log(user);

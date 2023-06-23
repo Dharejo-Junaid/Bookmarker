@@ -4,7 +4,8 @@ const User = new mongoose.Schema({
     name: {type:String, trim:true},
     email: {type:String, trim:true},
     hashPassword: {type:String},
-    isVerified: {type:Boolean}
+    isVerified: {type:Boolean},
+    bookmarks: []
 });
 
 module.exports = mongoose.model("User", User);
