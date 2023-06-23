@@ -31,10 +31,10 @@
         </div>
 
         <div class="right">
-            <% for(let i=0; i<names.length; i++) { %>
+            <% for(let i=0; i<userBookmarks.length; i++) { %>
                 <div>
-                    <p> <%= names[i] %> </p>
-                    <a href="<%= urls[i] %>"> <%= urls[i] %> </a>
+                    <p> <%= userBookmarks[i].name %> </p>
+                    <a href="<%= userBookmarks[i].url %>"> <%= userBookmarks[i].url %> </a>
                 </div>
             <% } %>
         </div>
