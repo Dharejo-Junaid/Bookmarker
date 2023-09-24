@@ -11,7 +11,8 @@ This is an innovative bookmarking application built with Node.js, Express, and M
 - Utilization of Docker containers for easy deployment
 - Secure storage of sensitive information using environment variables
 
-## LinkedIn link: https://www.linkedin.com/posts/dharejo-junaid_webdevelopment-internship-project-activity-7078156318825488384-qPBc?utm_source=share&utm_medium=member_desktop
+## LinkedIn link:
+- https://www.linkedin.com/posts/dharejo-junaid_webdevelopment-internship-project-activity-7078156318825488384-qPBc?utm_source=share&utm_medium=member_desktop
 
 ## Installation
 
